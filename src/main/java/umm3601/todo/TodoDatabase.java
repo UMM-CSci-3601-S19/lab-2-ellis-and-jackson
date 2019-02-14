@@ -6,9 +6,11 @@ import umm3601.user.User;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Map;
 
 public class TodoDatabase {
+
   private Todo[] allTodos;
 
   public TodoDatabase(String todoDataFile) throws IOException {
@@ -19,6 +21,18 @@ public class TodoDatabase {
 
   Todo[] listTodos(Map<String, String[]> queryParams) {
     Todo[] filteredTodos = allTodos;
+    // Filter age if defined
+    if (queryParams.containsKey("owner")) {
+      String targetOwner = queryParams.get("owner")[0];
+      filteredTodos = filterTodosByOwner(filteredTodos, targetOwner);
+    }
+
     return filteredTodos;
   }
+
+
+  private Todo[] filterTodosByOwner(Todo[] todos, String targetOwner) {
+    return Arrays.stream(todos).filter(x -> x.owner.equals(targetOwner)).toArray(Todo[]::new);
+  }
 }
+

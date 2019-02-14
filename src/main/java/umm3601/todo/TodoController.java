@@ -8,8 +8,9 @@ import spark.Response;
 import static umm3601.Util.buildSuccessJsonResponse;
 
 public class TodoController {
-  Gson gson = new Gson();
+  private Gson gson = new Gson();
   private TodoDatabase todoDatabase;
+
   public JsonObject getTodos(Request req, Response res){
     res.type("application/json");
     Todo[] todos = todoDatabase.listTodos(req.queryMap().toMap());
