@@ -6,6 +6,7 @@ import umm3601.user.User;
 
 import java.io.FileReader;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -21,12 +22,11 @@ public class TodoDatabase {
 
   Todo[] listTodos(Map<String, String[]> queryParams) {
     Todo[] filteredTodos = allTodos;
-    // Filter age if defined
+    // Filter by query parameters
     if (queryParams.containsKey("owner")) {
       String targetOwner = queryParams.get("owner")[0];
       filteredTodos = filterTodosByOwner(filteredTodos, targetOwner);
     }
-    // Process other query parameters here...
     if (queryParams.containsKey("category")) {
 
       String targetCategory = queryParams.get("category")[0];
@@ -41,6 +41,18 @@ public class TodoDatabase {
         targetStatus = Boolean.FALSE;
       }
       filteredTodos = filter(filteredTodos, targetStatus);
+    }
+
+    //Limit number of results
+    if (queryParams.containsKey("limit")) {
+      try {
+        int limit = Integer.parseInt(queryParams.get("limit")[0]);
+        if (filteredTodos.length > limit) {
+          filteredTodos = Arrays.copyOfRange(filteredTodos, 0, limit);
+        }
+      }catch(NumberFormatException e){
+        //do nothing here I just need a catch block with non-empty body
+      }
     }
 
     return filteredTodos;
