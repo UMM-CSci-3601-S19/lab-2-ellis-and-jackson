@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Todos</title>
+  <link rel="stylesheet" type="text/css" href="css/users.css">
+  <script type="text/javascript" src="javascript/todos.js"></script>
+</head>
+<body>
+<hr/>
+<div>
+  <label for="owner">Owner:</label><input id="owner" name="owner">
+  <br/>
+  <label for="category">Category:</label><input id="category" name="category">
+  <br/>
+  <label for="status">Status:</label>
+  <select id="status" name="status">
+    <option value="Either">Either</option>
+    <option value="complete">Complete</option>
+    <option value="incomplete">Incomplete</option>
+  </select>
+  <br/>
+  <label for="limit">Limit:</label><input id="limit" name="limit">
+  <br/>
+  <button onclick="getTodos()">Get Todos</button>
+
+  <div id="jsonDump" style="margin-top:20px"> Json will go here</div>
+</div>
+</body>
+</html>
