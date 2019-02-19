@@ -21,13 +21,13 @@ public class FilterTodosByBodyContains {
 
   @Test
   public void testBodyLength() {
-    queryParams.put("body", new String[]{"labore"});
+    queryParams.put("contains", new String[]{"labore"});
     Todo[] todos = db.listTodos(queryParams);
     assertEquals("Incorrect number todos with body labore", 60, todos.length);
   }
   @Test
   public void testCategoryFirstHomework() {
-    queryParams.put("body", new String[]{"labore"});
+    queryParams.put("contains", new String[]{"labore"});
     Todo[] todos= db.listTodos(queryParams);
     assertEquals("Incorrect id for first body todo", "58895985a22c04e761776d54", todos[0]._id);
     assertEquals("Incorrect owner for first body todo", "Blanche", todos[0].owner);
