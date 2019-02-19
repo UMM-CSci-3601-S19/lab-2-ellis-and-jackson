@@ -13,6 +13,8 @@
   <br/>
   <label for="category">Category:</label><input id="category" name="category">
   <br/>
+  <label for="contains">Body Contains:</label><input id="contains" name="contains">
+  <br/>
   <label for="status">Status:</label>
   <select id="status" name="status">
     <option value="Either">Either</option>
@@ -21,6 +23,15 @@
   </select>
   <br/>
   <label for="limit">Limit:</label><input id="limit" name="limit">
+  <br/>
+  <label for="orderBy">Sort By:</label>
+  <select id="orderBy" name="orderBy">
+    <option value="none">Default</option>
+    <option value="status">Status</option>
+    <option value="owner">Owner</option>
+    <option value="body">Body</option>
+    <option value="category">Category</option>
+  </select>
   <br/>
   <button onclick="getTodos()">Get Todos</button>
 

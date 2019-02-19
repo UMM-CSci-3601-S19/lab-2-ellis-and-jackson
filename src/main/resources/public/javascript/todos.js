@@ -11,9 +11,12 @@ function getTodos() {
   var category = document.getElementById("category").value;
   var status = document.getElementById("status").value;
   var limit = document.getElementById("limit").value;
-  var keys = ["owner", "category", "status", "limit"];
-  var values = [owner, category, status, limit];
-  var include = [owner !== "", category !== "", status !== "Either", limit !== ""];
+  var contains = document.getElementById("contains").value;
+  var orderBy = document.getElementById("orderBy").value;
+
+  var keys = ["owner", "category", "status", "limit", "contains", "orderBy"];
+  var values = [owner, category, status, limit, contains, orderBy];
+  var include = [owner !== "", category !== "", status !== "Either", limit !== "", contains !== "", orderBy !== "none"];
   var url = "/api/todos?";
   for(var i=0; i< keys.length; i++){
     if(include[i]){
