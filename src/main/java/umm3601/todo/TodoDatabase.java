@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Map;
 
 public class TodoDatabase {
@@ -47,6 +48,29 @@ public class TodoDatabase {
       filteredTodos = filterTodosByBody(filteredTodos, targetBody);
     }
 
+    //Sort Results
+    if (queryParams.containsKey("orderBy")){
+      String orderBy = queryParams.get("orderBy")[0];
+      switch (orderBy){
+        case("owner"): {
+          filteredTodos = sortTodosByOwner(filteredTodos);
+          break;
+        }
+        case("body"): {
+          filteredTodos = sortTodosByBody(filteredTodos);
+          break;
+        }
+        case("status"): {
+          filteredTodos = sortTodosByStatus(filteredTodos);
+          break;
+        }
+        case("category"): {
+          filteredTodos = sortTodosByCategory(filteredTodos);
+          break;
+        }
+      }
+    }
+
     //Limit number of results
     if (queryParams.containsKey("limit")) {
       try {
@@ -58,7 +82,6 @@ public class TodoDatabase {
         //do nothing here I just need a catch block with non-empty body
       }
     }
-
     return filteredTodos;
   }
 
@@ -75,5 +98,23 @@ public class TodoDatabase {
   private Todo[] filter(Todo[] todos, Boolean target) {
     return Arrays.stream(todos).filter(x -> x.status == target).toArray(Todo[]::new);
   }
+  private Todo[] sortTodosByOwner(Todo[] todos){
+    Arrays.sort(todos, new TodoOwnerComparator());
+    return todos;
+  }
+  private Todo[] sortTodosByBody(Todo[] todos){
+    Arrays.sort(todos, new TodoBodyComparator());
+    return todos;
+  }
+  private Todo[] sortTodosByCategory(Todo[] todos){
+    Arrays.sort(todos, new TodoCategoryComparator());
+    return todos;
+  }
+  private Todo[] sortTodosByStatus(Todo[] todos){
+    Arrays.sort(todos, new TodoStatusComparator());
+    return todos;
+  }
+
+
 }
 
