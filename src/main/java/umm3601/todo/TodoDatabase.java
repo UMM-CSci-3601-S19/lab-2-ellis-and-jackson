@@ -22,7 +22,7 @@ public class TodoDatabase {
   }
 
   Todo[] listTodos(Map<String, String[]> queryParams) {
-    Todo[] filteredTodos = allTodos;
+    Todo[] filteredTodos = Arrays.copyOf(allTodos, allTodos.length);
     // Filter by query parameters
     if (queryParams.containsKey("owner")) {
       String targetOwner = queryParams.get("owner")[0];
@@ -52,22 +52,22 @@ public class TodoDatabase {
     if (queryParams.containsKey("orderBy")){
       String orderBy = queryParams.get("orderBy")[0];
       switch (orderBy){
-        case("owner"): {
+        case "owner":
           filteredTodos = sortTodosByOwner(filteredTodos);
           break;
-        }
-        case("body"): {
+
+        case "body":
           filteredTodos = sortTodosByBody(filteredTodos);
           break;
-        }
-        case("status"): {
+
+        case "status":
           filteredTodos = sortTodosByStatus(filteredTodos);
           break;
-        }
-        case("category"): {
+
+        case "category":
           filteredTodos = sortTodosByCategory(filteredTodos);
           break;
-        }
+
       }
     }
 
