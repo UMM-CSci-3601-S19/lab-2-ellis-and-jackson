@@ -31,6 +31,7 @@ public class FilterTodosByCategory {
     Todo[] todos = db.listTodos(queryParams);
     assertEquals("Incorrect number todos with category homework", 79, todos.length);
   }
+
   @Test
   public void testCategoryFirstHomework() {
     queryParams.put("category", new String[]{"homework"});
